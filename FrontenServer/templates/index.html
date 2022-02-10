@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Stock Prediction</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+</head>
+<body class="is-preload">
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+<!-- Header -->
+<header id="header" class="alt">
+	<h1><a href="index.html">Stock Prediction</a></h1>
+</header>
+
+<!-- Banner -->
+<section id="banner">
+	<div class="inner">
+		<img src="static/icon.png" width="120" height="130">
+		<h2>Stock Prediction Application</h2>
+		<p>Successful prediction of a stock's future price</p>
+	</div>
+</section>
+
+<!-- Wrapper -->
+<section id="wrapper">
+
+	<!-- One -->
+	<section id="one" class="wrapper spotlight style1">
+		<div class="inner">
+			<div class="content">
+				<div class="col-12">
+					<form method="post">
+						<h3 class="major">Select a Company</h3>
+						<select id="comp" name="comp" method="GET" action="/">
+							{% for comp in company %}
+							<option value="{{comp}}">{{comp}}</option>
+							{% endfor %}
+						</select>
+						</br>
+						<h3 class="major">Select a time frame</h3>
+						
+						
+						<input type="date" id="timeframe" name="timeframe" value="timeframe" method="GET" action="/" required>
+						<span class="validity"></span>
+						
+						</br>		
+						</br>						
+						<input type="submit" value="Predict Stock">
+					</form>
+				</div>									
+			</div>
+		</div>
+	</section>
+</section>
+
+<!-- Footer -->
+<section id="footer">
+	<div class="inner">
+		<h2 class="major">Get in touch</h2>
+		<p>Want to get in touch? We'd love to hear from you. Here's how you can reach us..</p>
+		<form method="post" action="#">
+			<div class="fields">
+				<div class="field">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field">
+					<label for="email">Email</label>
+					<input type="email" name="email" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="4"></textarea>
+				</div>
+			</div>
+			<ul class="actions">
+				<li><input type="submit" value="Send Message" /></li>
+			</ul>
+		</form>
+		<ul class="contact">
+			<li class="icon solid fa-home">
+			Our Group Name<br />
+			Otto von Guericke University<br />
+			Universitätspl. 2, 39106 Magdeburg
+			</li>
+			<li class="icon solid fa-phone">Coming soon...</li>
+			<li class="icon solid fa-envelope"><a href="#">Coming soon...</a></li>
+			<li class="icon brands fa-twitter"><a href="#">Coming soon...</a></li>
+			<li class="icon brands fa-facebook-f"><a href="#">Coming soon...</a></li>
+			<li class="icon brands fa-instagram"><a href="#">Coming soon...</a></li>
+		</ul>
+	</div>
+</section>
+
+</div>
+
+<!-- Scripts -->
+	<script src="static/JavaScripts/jquery.min.js"></script>
+	<script src="static/JavaScripts/jquery.scrollex.min.js"></script>
+	<script src="static/JavaScripts/breakpoints.min.js"></script>
+	<script src="static/JavaScripts/main.js"></script>
+	<script type="text/javascript">
+    $(document).on('submit',function(e)
+                   {
+      e.preventDefault();
+	  $.ajax({
+        type:'POST',
+        url:'/',
+        data:{
+          comp:$("#comp").val(),
+		  timeframe:$("#timeframe").val()
+        }
+      })
+    });
+  </script>
+  <script>
+	var today = new Date().toISOString().split('T')[0];
+	document.getElementsByName("timeframe")[0].setAttribute('min', today);
+  </script>
+
+</body>
+</html>

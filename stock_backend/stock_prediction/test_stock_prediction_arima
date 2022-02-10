@@ -1,0 +1,16 @@
+import pytest
+import pandas
+import stock_prediction_arima
+
+def test_load_data():
+  result = stock_prediction_arima.load_data()
+  assert type(result) is pandas.core.frame.DataFrame
+  assert len(result.columns) == 7
+
+def test_accuracy():
+  result = stock_prediction_arima.calc_accuracy(stock_prediction_arima.data)
+  assert result.accuracy > 75
+
+def test_prediction():
+  result = stock_prediction_arima.forecast_data(stock_prediction_arima.data)
+  assert len(result.columns) == 2
